@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Render.com deployment configuration
+# Free tier: web service sleeps after 15 min inactivity (fine for testing)
+# Wakes up in ~30 seconds on next request
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: on-my-way-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+
+    # Environment variables — set these in Render dashboard
+    # Never put real values here (this file goes to GitHub)
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false          # Set manually in Render dashboard
+      - key: AUTH0_DOMAIN
+        value: on-my-way.us.auth0.com
+      - key: AUTH0_AUDIENCE
+        sync: false
+      - key: AUTH0_MGMT_CLIENT_ID
+        sync: false
+      - key: AUTH0_MGMT_CLIENT_SECRET
+        sync: false
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET
+        value: onmyway-documents
+      - key: ALLOWED_ORIGINS
+        sync: false
